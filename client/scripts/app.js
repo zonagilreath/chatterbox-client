@@ -10,14 +10,13 @@ var App = {
     App.startSpinner();
     App.fetch(App.stopSpinner);
     FormView.initialize();
-    MessagesView.initialize();
-    RoomsView.initialize();
   },
 
   fetch: function(callback = () => {}) {
     Parse.readAll(data => {
       // examine the response from the server request:
       Messages.update(data.results);
+      MessagesView.initialize();
       RoomsView.initialize();
       callback();
     });

@@ -86,8 +86,7 @@ describe('chatterbox', function() {
 
     it('should be able to add rooms to the DOM', function() {
       RoomsView.renderRoom('superLobby');
-      console.log($(`#rooms select`));
-      expect($('#rooms select').children().length).to.equal(1);
+      expect($('#rooms datalist').children().length).to.equal(1);
     });
   });
 
@@ -105,7 +104,6 @@ describe('chatterbox', function() {
         .find('.username')
         .trigger('click');
       expect(Friends.toggleStatus.called).to.be.true;
-
       Friends.toggleStatus.restore();
     });
 
