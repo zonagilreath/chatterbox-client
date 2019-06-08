@@ -1,3 +1,3 @@
 var Rooms = {
-  roomnames: []
+  roomnames: {}
 };

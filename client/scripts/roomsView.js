@@ -2,12 +2,15 @@ var RoomsView = {
   $button: $('#rooms button'),
   $select: $('#rooms select'),
 
-  initialize: function() {},
+  initialize: function() {
+    for (var room in Rooms.roomnames) {
+      this.renderRoom(room);
+    }
+  },
 
   render: _.template(`<option><%- roomname %></option>`),
 
   renderRoom: function(roomname) {
-    console.log(roomname);
     this.$select.append(this.render({ roomname: roomname }));
   }
 };
