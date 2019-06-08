@@ -1,3 +1,6 @@
 var Rooms = {
-  roomnames: {}
+  roomnames: {},
+  add: function(roomname) {
+    this.roomnames[roomname] = 1;
+  }
 };
