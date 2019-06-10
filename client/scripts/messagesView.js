@@ -2,30 +2,29 @@ var MessagesView = {
   $chats: $('#chats'),
 
   initialize: function() {
-    this.$chats.empty();
-    MessagesView.render(Messages.results);
+
+    MessagesView.$chats.on('click', '.username', MessagesView.handleClick);
   },
 
-  render: function(dataList) {
-    for (var i = 0; i < dataList.length; i++) {
-      if (dataList[i].roomname !== undefined) {
-        Rooms.roomnames[dataList[i].roomname] = 1;
-      }
-      this.renderMessage(dataList[i]);
-    }
+  render: function() {
+    MessagesView.$chats.html('');
+    Messages
+      .items()
+      .filter(message => Rooms.isSelected(message.roomname))
+      .each(message => MessagesView.renderMessage(message));
   },
 
   renderMessage: function(message) {
-    if (
-      message.text !== undefined &&
-      message.username !== undefined &&
-      message.roomname !== undefined
-    ) {
-      var messageElement = $(MessageView.render(message));
-      messageElement.find(`.username`).on('click', function(event) {
-        Friends.toggleStatus(event.target.textContent);
-      });
-      this.$chats.append(messageElement);
-    }
+    var $message = MessageView.render(message);
+    MessagesView.$chats.prepend($message);
+  },
+
+  handleClick: function(event) {
+    // Get username from data attribute
+    var username = $(event.target).data('username');
+    if (username === undefined) { return; }
+
+    Friends.toggleStatus(username, MessagesView.render);
   }
+
 };
